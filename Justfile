@@ -7,13 +7,17 @@ _default:
 audit:
     cargo deny check advisories
 
-# Runs clippy on the sources 
+# Check the package and deps for errors. i.e. "does it build"
 check:
-    cargo clippy -- -D warnings -D clippy::pedantic -D clippy::nursery
+    cargo check
 
 # Formats the source files
 format:
     cargo fmt 
+
+# Runs clippy on the sources 
+lint:
+    cargo clippy -- -D warnings -D clippy::pedantic -D clippy::nursery
 
 # Run the server locally
 run:
