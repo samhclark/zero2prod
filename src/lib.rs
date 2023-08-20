@@ -6,7 +6,7 @@ use hyper::server::conn::AddrIncoming;
 
 // No longer `async`
 // Returns longer Server type. Need `hyper` to write these types
-/// # Panics 
+/// # Panics
 /// TODO    
 #[must_use]
 pub fn run() -> hyper::Server<AddrIncoming, IntoMakeService<Router>> {
