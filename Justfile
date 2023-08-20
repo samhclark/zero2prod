@@ -3,25 +3,29 @@
 _default:
     @just --list
 
-# Formats the source files
-format:
-	cargo fmt 
+# Audits dependencies with cargo deny
+audit:
+    cargo deny check advisories
 
 # Runs clippy on the sources 
 check:
-	cargo clippy --locked -- -D warnings -D clippy::pedantic -D clippy::nursery
+    cargo clippy -- -D warnings -D clippy::pedantic -D clippy::nursery
 
-# Runs unit tests
-test:
-	cargo test --locked
+# Formats the source files
+format:
+    cargo fmt 
 
 # Run the server locally
 run:
-	cargo run 
+    cargo run 
 
 # Watch files for changes, keep the running server up-to-date
 start:
     cargo watch \
-	        -x check \
-	        -x 'test --locked' \
-			-x run
+            -x check \
+            -x test \
+            -x run
+
+# Runs unit tests
+test:
+    cargo test
