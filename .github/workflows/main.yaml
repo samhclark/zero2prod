@@ -33,6 +33,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Install clang
+        run: |
+          apt-get update  && apt-get install -y clang && rm -rf /var/lib/apt/lists/*
       - uses: dtolnay/rust-toolchain@stable
         with:
           components: clippy
