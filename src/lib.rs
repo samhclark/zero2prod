@@ -1,3 +1,5 @@
+use std::net::TcpListener;
+
 use axum::{
     routing::{get, IntoMakeService},
     Router,
@@ -9,8 +11,10 @@ use hyper::server::conn::AddrIncoming;
 /// # Panics
 /// TODO    
 #[must_use]
-pub fn run() -> hyper::Server<AddrIncoming, IntoMakeService<Router>> {
+pub fn run(address: TcpListener) -> hyper::Server<AddrIncoming, IntoMakeService<Router>> {
     let app = Router::new().route("/health_check", get(|| async {}));
 
-    axum::Server::bind(&"127.0.0.1:3000".parse().unwrap()).serve(app.into_make_service())
+    axum::Server::from_tcp(address)
+        .expect("A bound TCP address is required")
+        .serve(app.into_make_service())
 }
